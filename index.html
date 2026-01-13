@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuseBoss Technologies LLC | Search & AI Consulting</title>
+    <meta name="description" content="Expert consulting in Search Technologies, Big Data, Semantic Search, and AI. Building intelligent search experiences that drive business value.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a24;
+            --bg-card: #16161f;
+            --text-primary: #f0f0f5;
+            --text-secondary: #b8b8c8;
+            --text-muted: #6a6a7a;
+            --accent: #00d4aa;
+            --accent-dim: #00a888;
+            --accent-glow: rgba(0, 212, 170, 0.15);
+            --border: #2a2a3a;
+            --border-light: #3a3a4a;
+            --gradient-start: #00d4aa;
+            --gradient-end: #00a0e4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 212, 170, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 170, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .bg-glow-1 {
+            top: -400px;
+            right: -200px;
+        }
+
+        .bg-glow-2 {
+            bottom: -400px;
+            left: -200px;
+            background: radial-gradient(circle, rgba(0, 160, 228, 0.1) 0%, transparent 70%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--bg-primary);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Clients Bar */
+        .clients-bar {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .clients-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .client-logos {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .client-logo {
+            height: 28px;
+            width: auto;
+            opacity: 0.6;
+            filter: brightness(0) invert(1);
+            transition: opacity 0.3s ease;
+        }
+
+        .client-logo-large {
+            height: 35px;
+            width: auto;
+            opacity: 0.6;
+            filter: brightness(0) invert(1);
+            transition: opacity 0.3s ease;
+        }
+
+        .client-logo:hover {
+            opacity: 1;
+        }
+
+        .client-logo-large:hover {
+            opacity: 1;
+        }
+
+
+        /* Section Styles */
+        section {
+            padding: 8rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            max-width: 700px;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--bg-secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-dim);
+            transform: translateY(-4px);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .service-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .service-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Technologies Section */
+        .technologies {
+            background: var(--bg-primary);
+        }
+
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .tech-category h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .tech-category h3::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tech-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 0.6rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        /* Process Section */
+        .process {
+            background: var(--bg-secondary);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .step-number {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Why Section */
+        .why {
+            background: var(--bg-primary);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .why-content h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .why-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .why-features {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .why-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .why-feature:hover {
+            border-color: var(--accent-dim);
+        }
+
+        .feature-icon {
+            color: var(--accent);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .feature-text strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-text span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .why-visual {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .why-visual::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, var(--accent) 0%, transparent 50%);
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .visual-stat {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .visual-stat:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .visual-stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .visual-stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--bg-primary);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--accent);
+            opacity: 0.2;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--accent-dim);
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-logo {
+            height: 24px;
+            width: auto;
+            opacity: 0.7;
+            filter: brightness(0) invert(1);
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .author-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--bg-secondary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        .contact-item-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .contact-item-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--bg-primary);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            padding: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .fade-in.delay-1 { animation-delay: 0.1s; }
+        .fade-in.delay-2 { animation-delay: 0.2s; }
+        .fade-in.delay-3 { animation-delay: 0.3s; }
+        .fade-in.delay-4 { animation-delay: 0.4s; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section, .hero {
+                padding: 4rem 2rem;
+            }
+
+            .clients-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .client-logos {
+                gap: 2rem;
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+
+            .why-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .client-logos {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .client-logo {
+                height: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">F</div>
+            FuseBoss
+        </div>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#technologies">Technologies</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#why">Why Us</a></li>
+        </ul>
+        <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get in Touch</button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge fade-in">Available for Projects</span>
+            <h1 class="fade-in delay-1">
+                Search & AI<br>
+                <span class="gradient">Engineering Excellence</span>
+            </h1>
+            <p class="hero-description fade-in delay-2">
+                We build intelligent search experiences that transform how businesses connect with their data.
+                From semantic search to large-scale data pipelines, we deliver solutions that drive real value.
+            </p>
+            <div class="hero-actions fade-in delay-3">
+                <a href="#contact" class="btn-primary">
+                    Start a Project
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#services" class="btn-secondary">Explore Services</a>
+            </div>
+            <div class="clients-bar fade-in delay-4">
+                <span class="clients-label">Trusted by</span>
+                <div class="client-logos">
+                    <img src="img/Daydream_Logo_Light.svg" alt="DayDream.ing" class="client-logo-large">
+                    <img src="img/grubhub-vector-logo.svg" alt="GrubHub" class="client-logo">
+                    <img src="img/bloomberg_Logo.svg" alt="Bloomberg" class="client-logo">
+                    <img src="img/xactly-logo-vector.svg" alt="Xactly" class="client-logo">
+                    <img src="img/Juniper_Networks_logo.svg" alt="Juniper Networks" class="client-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header">
+            <span class="section-label">What We Do</span>
+            <h2 class="section-title">Specialized consulting for search, data, and AI-driven solutions</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Search Engineering</h3>
+                <p class="service-desc">
+                    Design and implementation of high-performance search systems. From relevance tuning
+                    to query understanding, we build search that truly understands user intent.
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">Elasticsearch</span>
+                    <span class="service-tag">Apache Lucene</span>
+                    <span class="service-tag">OpenSearch</span>
+                    <span class="service-tag">Solr</span>
+                </div>
+            </div>
+            <div class="service-card fade-in delay-1">
+                <div class="service-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Semantic Search & AI</h3>
+                <p class="service-desc">
+                    Next-generation search powered by machine learning. Vector embeddings,
+                    neural ranking, and LLM integration for contextual understanding.
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">Vector Search</span>
+                    <span class="service-tag">RAG</span>
+                    <span class="service-tag">Embeddings</span>
+                    <span class="service-tag">LLMs</span>
+                </div>
+            </div>
+            <div class="service-card fade-in delay-2">
+                <div class="service-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M8 21h8"/>
+                        <path d="M12 17v4"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Big Data Infrastructure</h3>
+                <p class="service-desc">
+                    Scalable data pipelines and distributed systems. Real-time processing,
+                    data lakes, and analytics infrastructure built for enterprise scale.
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">Apache Spark</span>
+                    <span class="service-tag">Kafka</span>
+                    <span class="service-tag">Hadoop</span>
+                    <span class="service-tag">Flink</span>
+                </div>
+            </div>
+            <div class="service-card fade-in delay-3">
+                <div class="service-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Platform Architecture</h3>
+                <p class="service-desc">
+                    End-to-end system design and architecture consulting. Cloud-native solutions,
+                    microservices, and containerized deployments.
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">AWS</span>
+                    <span class="service-tag">Docker</span>
+                    <span class="service-tag">Kubernetes</span>
+                    <span class="service-tag">Terraform</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="technologies" id="technologies">
+        <div class="section-header">
+            <span class="section-label">Technology Stack</span>
+            <h2 class="section-title">Deep expertise across the modern data ecosystem</h2>
+        </div>
+        <div class="tech-categories">
+            <div class="tech-category">
+                <h3>Search & Discovery</h3>
+                <div class="tech-list">
+                    <span class="tech-item">Elasticsearch</span>
+                    <span class="tech-item">Apache Lucene</span>
+                    <span class="tech-item">OpenSearch</span>
+                    <span class="tech-item">Apache Solr</span>
+                    <span class="tech-item">Vespa</span>
+                    <span class="tech-item">Meilisearch</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h3>AI & Machine Learning</h3>
+                <div class="tech-list">
+                    <span class="tech-item">Vector Databases</span>
+                    <span class="tech-item">LangChain</span>
+                    <span class="tech-item">OpenAI</span>
+                    <span class="tech-item">Hugging Face</span>
+                    <span class="tech-item">PyTorch</span>
+                    <span class="tech-item">FAISS</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h3>Big Data</h3>
+                <div class="tech-list">
+                    <span class="tech-item">Apache Spark</span>
+                    <span class="tech-item">Apache Kafka</span>
+                    <span class="tech-item">Apache Flink</span>
+                    <span class="tech-item">Hadoop</span>
+                    <span class="tech-item">Presto</span>
+                    <span class="tech-item">Delta Lake</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h3>Languages & Frameworks</h3>
+                <div class="tech-list">
+                    <span class="tech-item">Java</span>
+                    <span class="tech-item">Python</span>
+                    <span class="tech-item">Scala</span>
+                    <span class="tech-item">Spring Boot</span>
+                    <span class="tech-item">FastAPI</span>
+                    <span class="tech-item">Node.js</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h3>Cloud & Infrastructure</h3>
+                <div class="tech-list">
+                    <span class="tech-item">AWS</span>
+                    <span class="tech-item">GCP</span>
+                    <span class="tech-item">Docker</span>
+                    <span class="tech-item">Kubernetes</span>
+                    <span class="tech-item">Terraform</span>
+                    <span class="tech-item">CI/CD</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h3>Databases</h3>
+                <div class="tech-list">
+                    <span class="tech-item">PostgreSQL</span>
+                    <span class="tech-item">MongoDB</span>
+                    <span class="tech-item">Redis</span>
+                    <span class="tech-item">Cassandra</span>
+                    <span class="tech-item">DynamoDB</span>
+                    <span class="tech-item">Neo4j</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process" id="process">
+        <div class="section-header">
+            <span class="section-label">How We Work</span>
+            <h2 class="section-title">A proven approach to delivering results</h2>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <h4 class="step-title">Discovery</h4>
+                <p class="step-desc">Deep dive into your business requirements, existing infrastructure, and goals</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <h4 class="step-title">Architecture</h4>
+                <p class="step-desc">Design scalable solutions with clear technical specifications and roadmap</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <h4 class="step-title">Implementation</h4>
+                <p class="step-desc">Agile development with continuous integration and iterative delivery</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <h4 class="step-title">Optimization</h4>
+                <p class="step-desc">Performance tuning, monitoring setup, and knowledge transfer</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why" id="why">
+        <div class="why-grid">
+            <div class="why-content">
+                <div class="section-header">
+                    <span class="section-label">Why FuseBoss</span>
+                    <h2 class="section-title">Enterprise experience, startup agility</h2>
+                </div>
+                <p>
+                    We bring deep technical expertise from building search and data systems at scale
+                    for industry leaders. Our approach combines proven enterprise patterns with
+                    modern, pragmatic solutions.
+                </p>
+                <div class="why-features">
+                    <div class="why-feature">
+                        <span class="feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Proven Track Record</strong>
+                            <span>Solutions deployed at GrubHub, Bloomberg, Juniper Networks</span>
+                        </div>
+                    </div>
+                    <div class="why-feature">
+                        <span class="feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Open Source Contributors</strong>
+                            <span>Creators of docker-java, committers on distributed systems projects</span>
+                        </div>
+                    </div>
+                    <div class="why-feature">
+                        <span class="feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Patent Holders</strong>
+                            <span>Inventors with granted US patents in distributed systems</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-visual">
+                <div class="visual-stat">
+                    <div class="visual-stat-value">20+</div>
+                    <div class="visual-stat-label">Years building search & data systems</div>
+                </div>
+                <div class="visual-stat">
+                    <div class="visual-stat-value">15+</div>
+                    <div class="visual-stat-label">Enterprise consulting engagements</div>
+                </div>
+                <div class="visual-stat">
+                    <div class="visual-stat-value">∞</div>
+                    <div class="visual-stat-label">Commitment to quality engineering</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <span class="section-label">Client Feedback</span>
+            <h2 class="section-title">What our clients say</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">
+                    Working with FuseBoss was a great experience. Their team delivered exceptional work on our search infrastructure over two years. No matter how complex the task, they approached it with confidence and consistently delivered high-quality results on time. Their deep understanding of search technologies, especially Elasticsearch and Lucene, was invaluable.
+                </p>
+                <div class="testimonial-author">
+                    <img src="img/grubhub-vector-logo.svg" alt="GrubHub" class="author-logo">
+                    <div class="author-info">
+                        <span class="author-name">Elad Sheinfeld</span>
+                        <span class="author-role">Engineering Manager, GrubHub</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in delay-1">
+                <p class="testimonial-text">
+                    We collaborated with FuseBoss on multiple projects ranging from building search systems to job schedulers. Their team is enterprising and has the rare skill of solving ambiguous problems. They work equally well independently and in close collaboration. Highly recommended.
+                </p>
+                <div class="testimonial-author">
+                    <img src="img/bloomberg_Logo.svg" alt="Bloomberg" class="author-logo">
+                    <div class="author-info">
+                        <span class="author-name">Skand Gupta</span>
+                        <span class="author-role">Engineering Manager, Bloomberg</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in delay-2">
+                <p class="testimonial-text">
+                    FuseBoss is a hands down 10x engineering team. They have the ability to understand the crux of business problems and come up with thorough, solid solutions. Their expertise in Big Data, Search, and Java/J2EE technologies is outstanding. They never give up until they find the root cause of a problem.
+                </p>
+                <div class="testimonial-author">
+                    <img src="img/xactly-logo-vector.svg" alt="Xactly" class="author-logo">
+                    <div class="author-info">
+                        <span class="author-name">Anil Kona</span>
+                        <span class="author-role">Engineering Manager, Xactly</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in delay-3">
+                <p class="testimonial-text">
+                    FuseBoss's approach to our project was impressive. Their focus on understanding the details of our business operations gave us confidence. The delivery materialized on time and was deployed with their help, advice, and oversight. Their genuine interest in the project is refreshing — a rare trait in the formal business world.
+                </p>
+                <div class="testimonial-author">
+                    <img src="img/Juniper_Networks_logo.svg" alt="Juniper Networks" class="author-logo">
+                    <div class="author-info">
+                        <span class="author-name">Omar Hamwi</span>
+                        <span class="author-role">Client, Juniper Networks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="section-header">
+                    <span class="section-label">Get Started</span>
+                    <h2 class="section-title">Let's build something great together</h2>
+                </div>
+                <p>
+                    Whether you're looking to improve search relevance, build data pipelines,
+                    or integrate AI into your product — we're here to help.
+                </p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="contact-item-label">Email</span>
+                            <div class="contact-item-text">contact@fuseboss.com</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="contact-item-label">Location</span>
+                            <div class="contact-item-text">New York, NY</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" action="https://formspree.io/f/mkoonyon" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="service">Service Interest</label>
+                    <select id="service" name="service">
+                        <option value="search">Search Engineering</option>
+                        <option value="semantic">Semantic Search & AI</option>
+                        <option value="bigdata">Big Data Infrastructure</option>
+                        <option value="architecture">Platform Architecture</option>
+                        <option value="other">Other / General Inquiry</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" name="message" placeholder="Tell us about your project, challenges, and goals..." required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo-icon" style="width: 24px; height: 24px; font-size: 0.75rem;">F</div>
+                FuseBoss Technologies LLC
+            </div>
+            <div class="footer-text">
+                &copy; 2025 FuseBoss Technologies LLC. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
